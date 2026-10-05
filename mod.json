@@ -1,0 +1,114 @@
+{
+  "name": "auto-hunt",
+  "version": "4.3.0",
+  "author": "Thomas (v4.1) / clarois (skill presets)",
+  "description": "Auto-Hunt v4.1 PLUS per-player skill presets: pick a character's loadout from the dropdown and it auto-assigns those skills to hotbar slots ASDFGHJKL, then casts them on a cadence interleaved with physical attacks while hunting. Presets ship empty — build yours by copying entries from client/skill-list.json (every skill on this server, grouped by job) into client/presets.json; presets.example.json shows the shape. Physical-only behavior is unchanged: leave the dropdown on 'No skill preset'. v4.3 adds opt-in AUTO-TELEPORT: if nothing has been in range for a few seconds it presses a hotbar slot you nominate (Fly Wing item or the Teleport skill) so the character jumps to a fresh spot instead of walking an empty map. Off by default.",
+  "requires": { "app": ">=1.0.9", "era": "any" },
+  "settings": [
+    {
+      "key": "low_hp_stop_percent",
+      "type": "number",
+      "default": 30,
+      "label": "Stop auto-hunting below this HP%",
+      "description": "A safety cutoff. If your HP ratio drops to or below this percentage, auto-hunt turns itself off rather than keep fighting unattended."
+    },
+    {
+      "key": "scan_interval_ms",
+      "type": "number",
+      "default": 800,
+      "label": "How often to check for a target, in milliseconds",
+      "description": "How often Auto-Hunt checks for a target, and how often Auto-Heal checks your HP. Lower reacts faster but sends more requests; higher is gentler."
+    },
+    {
+      "key": "toggle_key_code",
+      "type": "string",
+      "default": "Comma",
+      "label": "Keyboard shortcut (physical key code) to toggle Auto-Hunt",
+      "description": "A browser KeyboardEvent.code name, e.g. \"Comma\" for \",\", \"KeyG\" for G."
+    },
+    {
+      "key": "auto_heal_enabled",
+      "type": "boolean",
+      "default": true,
+      "label": "Auto-Heal on by default",
+      "description": "Only sets the starting state the very first time this mod runs. After that, the button/keyboard shortcut remembers your last choice."
+    },
+    {
+      "key": "heal_toggle_key_code",
+      "type": "string",
+      "default": "Period",
+      "label": "Keyboard shortcut (physical key code) to toggle Auto-Heal",
+      "description": "Defaults to \".\". Same format as the Auto-Hunt shortcut."
+    },
+    {
+      "key": "heal_hp_percent",
+      "type": "number",
+      "default": 50,
+      "label": "Press the heal slot below this HP%",
+      "description": "Set higher than 'Stop auto-hunting below' so Auto-Heal gets a chance before the hard stop."
+    },
+    {
+      "key": "heal_slot_index",
+      "type": "number",
+      "default": 17,
+      "label": "Hotbar slot to press when healing (0-35)",
+      "description": "The game's hotbar is 4 rows of 9: 0-8 = F1-F9, 9-17 = 1-9 keys, 18-26 = QWERTYUIO, 27-35 = ASDFGHJKL. NOTE: v4.2 auto-assigns skill presets to the 27-35 row (ASDFGHJKL) -- put your heal slot on a different key if you run both."
+    },
+    {
+      "key": "heal_cooldown_ms",
+      "type": "number",
+      "default": 2000,
+      "label": "Minimum time between auto-heal presses (ms)",
+      "description": "Prevents mashing the heal slot faster than a potion's use-delay allows."
+    },
+    {
+      "key": "skill_cast_interval_ms",
+      "type": "number",
+      "default": 1500,
+      "label": "Attack-skill cast cadence (ms)",
+      "description": "How often each assigned ATTACK skill hotbar slot is pressed while a monster has focus. The server enforces real cooldowns; this only sets how frequently the mod offers to press."
+    },
+    {
+      "key": "buff_refresh_ms",
+      "type": "number",
+      "default": 30000,
+      "label": "Buff/heal refresh cadence (ms)",
+      "description": "How often assigned SUPPORT skills (heals/buffs recognized by name) are pressed on their long refresh cycle. If a buff in your preset has an unusual name and you want it on the long cycle instead of the attack cadence, edit client/index.js SUPPORT_NAMES."
+    },
+    {
+      "key": "auto_teleport_enabled",
+      "type": "boolean",
+      "default": false,
+      "label": "Auto-Teleport on by default",
+      "description": "Only sets the starting state the very first time this mod runs; after that the button/shortcut remembers your last choice. Ships OFF because it presses a hotbar slot -- put a Fly Wing or the Teleport skill there before turning it on."
+    },
+    {
+      "key": "teleport_toggle_key_code",
+      "type": "string",
+      "default": "Semicolon",
+      "label": "Keyboard shortcut (physical key code) to toggle Auto-Teleport",
+      "description": "Semicolon by default (the ; key). Same format as the other shortcuts."
+    },
+    {
+      "key": "teleport_slot_index",
+      "type": "number",
+      "default": 18,
+      "label": "Hotbar slot holding Fly Wing / Teleport (0-35)",
+      "description": "The slot the mod presses when nothing is in range. Same layout as the heal slot: 0-8 = F1-F9, 9-17 = 1-9, 18-26 = QWERTYUIO, 27-35 = ASDFGHJKL. Keep it off the 27-35 row -- that row belongs to skill presets."
+    },
+    {
+      "key": "teleport_idle_ms",
+      "type": "number",
+      "default": 6000,
+      "label": "Teleport after this long with nothing in range (ms)",
+      "description": "How long the hunt must find NO monster at all before jumping. Raise it if it teleports away from spawns too eagerly; lower it on crowded maps."
+    },
+    {
+      "key": "teleport_cooldown_ms",
+      "type": "number",
+      "default": 6000,
+      "label": "Minimum time between auto-teleports (ms)",
+      "description": "Prevents burning wings in a row when the new spot is empty too. The server still enforces the wing's own use delay."
+    }
+  ]
+}

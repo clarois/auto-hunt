@@ -1,0 +1,56 @@
+AUTO-HUNT v4.3 -- QUICK START
+=============================
+
+WHAT IT IS
+  An on-screen panel that hunts for you: it attacks the nearest monster, walks
+  around when nothing is nearby, casts YOUR character's skills from a preset,
+  and can auto-heal and auto-teleport. It only presses hotbar slots through the
+  game's own actions -- the server still checks cooldowns, SP, range and
+  targeting. No server changes needed.
+
+INSTALL
+  1. Copy the folder "auto-hunt" (the one this file sits in) into
+       %APPDATA%\Ragnarok Offline\state\mods\
+     (or drop the .zip there if your app imports mods from zips)
+  2. Start the app -> Settings -> Mods -> turn ON "auto-hunt"
+  3. RESTART the whole app once -- client changes load only at app start.
+
+USING IT
+  Panel appears at the top-left of the game screen.
+    ","  or the Auto-Hunt button ....... start / stop hunting
+    "."  .............................. toggle Auto-Heal
+    ";"  .............................. toggle Auto-Teleport
+    preset dropdown ................... pick your character's skill list
+
+YOUR SKILL PRESET (optional, but the point of the mod)
+  1. Open client/skill-list.json -- every skill on this server, grouped by job.
+  2. Copy the skills you want into client/presets.json under your EXACT
+     character name. Only "name" and "id" are read, so pasting whole entries
+     straight from skill-list.json is fine:
+        { "yourchar": [ {"name": "MG_LIGHTNINGBOLT", "id": 137} ] }
+  3. Entry order = hotbar slots A S D F G H J K L (the last hotbar row).
+     Put buffs/heals first, damage skills last. Keep that row free of your own
+     shortcuts on that character.
+  4. client/presets.example.json shows the exact shape.
+  5. Restart the app, log in, pick your preset in the dropdown.
+
+AUTO-TELEPORT (ships OFF on purpose -- it presses a slot)
+  1. Put a Fly Wing (or the Teleport skill) on a hotbar slot, e.g. Q.
+  2. Set that slot in Settings -> Mods: "teleport_slot_index" (default 18 = Q),
+     and turn Auto-Teleport on with ";" or the panel button.
+  3. While hunting, if nothing is in range for ~6 s it presses that slot and
+     the character jumps somewhere new instead of walking an empty map.
+  4. Use Fly Wing / Teleport LEVEL 1 (random spot, same map). Level 2 goes to
+     your save point -- a map change, and the mod stops the hunt on those by
+     design.
+
+GOOD TO KNOW
+  - Ground/place spells (fire walls, ice rod floors) cannot auto-cast: leave
+    them out of presets or cast them by hand.
+  - Party-targeted heals/buffs do not auto-refresh while botting; self-buffs do.
+    The "." auto-heal always heals YOU.
+  - Hunting stops itself if HP drops below "Stop auto-hunting below" (%).
+  - Console (F12) logs everything, tagged [auto-hunt]: presets loaded,
+    skills armed, aim-mode cancels, teleport presses.
+
+Full documentation: README.md

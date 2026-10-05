@@ -1,0 +1,19 @@
+{
+  "_comment": [
+    "EXAMPLE presets.json — this file is NOT loaded by the mod (it loads presets.json, which ships empty).",
+    "Pick the skills you want from client/skill-list.json and paste them INTO presets.json as-is.",
+    "Full entries are fine: extra fields like type/desc are ignored — only name and id are read.",
+    "",
+    "Rules:",
+    "- Key = your exact character name (the dropdown lists whatever keys exist here).",
+    "- Value = list of skill entries. Each entry needs at least {name, id}; you may paste whole lines from skill-list.json unchanged.",
+    "- Order matters: entry N goes to hotbar slot 27+N-1 (ASDFGHJKL row). Put buff/heal skills first,",
+    "  attack skills last. Max 9 usable slots; extra lines are ignored beyond the 9th, and any skill",
+    "  your character hasn't learned is silently skipped by the server.",
+    "- \"id\": null means unresolved — those entries are skipped by the mod."
+  ],
+  "example_character": [
+    { "name": "AL_HEAL", "id": 28, "type": "Magic", "desc": "Heal" },
+    { "name": "WZ_FIREPILLAR", "id": 80, "type": "Magic", "desc": "Fire Pillar" }
+  ]
+}
